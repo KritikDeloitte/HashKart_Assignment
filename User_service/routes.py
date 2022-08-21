@@ -62,10 +62,10 @@ def get_all_users():
         user_data['admin'] = user.admin
         output.append(user_data)
     
-    response = jsonify({'users' : output})
+    response = jsonify( output)
     return response
 
-@app.route('/user/login', methods=['GET'])
+@app.route('/user/login', methods=['GET','POST'])
 def login():
     app.logger.info('login')
     auth = request.get_json() 

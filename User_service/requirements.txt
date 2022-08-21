@@ -9,3 +9,4 @@ python-editor==1.0.3
 SQLAlchemy==1.2.9
 Werkzeug==2.0.3
 requests==2.27.1
+flask-swagger-ui==4.11.1

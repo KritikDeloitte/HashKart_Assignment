@@ -1,0 +1,151 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "User Service",
+    "version": "1.0.0",
+    "title": "User Service",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/user"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User Service",
+      "description": "User login , see user and register here"
+    }
+  ],
+  "paths": {
+    "/show_user": {
+      "get": {
+        "tags": [
+          "User Service"
+        ],
+        "summary": "Get All users",
+        "requestBody": {
+          "description": "show all user",
+          "required": false,
+          "content": {
+            "application/json": {}
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Users",
+            "schema": {
+              "$ref": "#/components/schemas/users_all"
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "User Service"
+        ],
+        "summary": "Login User",
+        "requestBody": {
+          "description": "Login User",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Token will be in the response"
+          },
+          "401": {
+            "description": "Invalid username or password"
+          }
+        }
+      }
+    },
+    "/current_user": {
+      "get": {
+        "tags": [
+          "User Service"
+        ],
+        "summary": "Get Current User",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "type": "string",
+            "in": "header",
+            "required": true,
+            "description": "access token"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Curernt User"
+          },
+          "401": {
+            "description": "Invalid Token"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "login": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "format": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "users_all": {
+        "type": "object",
+        "properties": {
+          "public_id": {
+            "type": "string",
+            "format": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "number"
+          },
+          "password": {
+            "type": "string",
+            "format": "string"
+          },
+          "admin": {
+            "type": "string",
+            "format": "boolean"
+          },
+          "username": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      }
+    }
+  }
+}

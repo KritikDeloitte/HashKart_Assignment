@@ -1,3 +1,4 @@
+
 from pickle import NONE
 from unicodedata import category
 from urllib import request
@@ -27,7 +28,7 @@ def add_product():
     db.session.commit()
     return {'msg':'Product added'}
 
-@app.get('/product/with_filter')
+@app.route('/product/with_filter',methods=['GET','POST'])
 def show_product_with_filter():
     data= request.get_json()
     response= []
