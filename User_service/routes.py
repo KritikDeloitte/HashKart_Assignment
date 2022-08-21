@@ -43,7 +43,7 @@ def create_user():
     new_user= User(public_id=str(uuid.uuid4()), username=data['username'], password=hashed_password, admin=False)
     db.session.add(new_user)
     db.session.commit()
-    response  = jsonify({'message' : 'New user created!'}), 201
+    response  = jsonify({'message' : 'New user created!'}), 200
     return response
 
 

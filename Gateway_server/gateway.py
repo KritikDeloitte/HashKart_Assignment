@@ -12,7 +12,7 @@ def user_decorator(f):
         return f(user,*args,**kwargs)
     return decorated
 
-@app.route('/login', methods=['GET'])
+@app.route('/login', methods=['GET','POST'])
 def login():
 
     response = requests.get('http://127.0.0.1:5001/user/login', json=request.get_json())
@@ -23,7 +23,9 @@ def login():
 @app.post('/register/user')
 def register_user():
     response = requests.post('http://127.0.0.1:5001/user/register', json=request.get_json())
-    return response
+    if response.status_code == 200:
+        return {'msg':"user Added"},200
+    return {"msg":"some error occure"},404
 
 @app.get('/get_user')
 def get_user():

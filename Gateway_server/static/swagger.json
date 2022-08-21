@@ -1,0 +1,236 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Gateway Service",
+    "version": "1.0.0",
+    "title": "Gateway Service",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Gateway Service",
+      "description": "Show, add and filter products"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "Gateway Service"
+        ],
+        "summary": "Login User",
+        "requestBody": {
+          "description": "Login User",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Token will be in the response"
+          },
+          "401": {
+            "description": "Invalid username or password"
+          }
+        }
+      }
+    },
+    "/register/user": {
+      "post": {
+        "tags": [
+          "Gateway Service"
+        ],
+        "summary": "Register a User",
+        "requestBody": {
+          "description": "Register a User",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User added"
+          }
+        }
+      }
+    },
+    "/add": {
+      "post": {
+        "tags": [
+          "Gateway Service"
+        ],
+        "summary": "Add Product",
+        "requestBody": {
+          "description": "Add Product",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/add_product"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Product added"
+          }
+        }
+      }
+    },
+    "/get_product/{product_id}": {
+      "get": {
+        "tags": [
+          "Gateway Service"
+        ],
+        "summary": "Get Product with product_id",
+        "parameters": [
+          {
+            "name": "product_id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "product_id to get product"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Product with product_id"
+          },
+          "404": {
+            "description": "Product not available"
+          }
+        }
+      }
+    },
+    "/with_filter": {
+      "post": {
+        "tags": [
+          "Gateway Service"
+        ],
+        "summary": "Filter Product",
+        "requestBody": {
+          "description": "Filter Product , Only Category is required others are Optional",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/filter_schema"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Products with filter"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "login": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "format": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "add_product": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          },
+          "category": {
+            "type": "string",
+            "format": "string"
+          },
+          "review": {
+            "type": "string",
+            "format": "number"
+          },
+          "price": {
+            "type": "string",
+            "format": "number"
+          },
+          "discount_percentage": {
+            "type": "string",
+            "format": "number"
+          },
+          "discount_at_quantity": {
+            "type": "string",
+            "format": "number"
+          },
+          "quantity": {
+            "type": "string",
+            "format": "number"
+          }
+        }
+      },
+      "filter_schema": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "format": "string",
+            "required": true
+          },
+          "start_price": {
+            "type": "string",
+            "format": "number"
+          },
+          "end_price": {
+            "type": "string",
+            "format": "number"
+          },
+          "review_above": {
+            "type": "string",
+            "format": "number"
+          }
+        }
+      }
+    }
+  }
+}
